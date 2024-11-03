@@ -76,7 +76,10 @@ window.onload = function() {
                 fase = 1; // Reseta a fase para 1 para o próximo jogo
                 maxChute = 20; // Reseta o valor máximo
                 chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
+                const gameOverMessage = document.getElementById('gameOverMessage');
+            gameOverMessage.style.display = 'block'; // Mostra a mensagem de Game Over
             }
         }
+        chuteInput.value = '';
     }
 };  
