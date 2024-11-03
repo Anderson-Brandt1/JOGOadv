@@ -1,6 +1,9 @@
 body {
     font-family: 'Arial', sans-serif;
- background-color: #282c34;
+    background-image: url('seu-fundo-animado.gif'); /* Substitua pelo caminho do seu GIF */
+    background-size: cover; /* Cobre toda a área */
+    background-repeat: no-repeat; /* Não repete a imagem */
+    background-position: center; /* Centraliza a imagem */
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -16,10 +19,11 @@ h1 {
 }
 
 .container {
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.8); /* Fundo semi-transparente para melhor legibilidade */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center; /* Centraliza o texto dentro do container */
 }
 
 label {
@@ -55,11 +59,11 @@ button:hover {
 }
 
 .jogo {
-    display: none;
+    display: none; /* Oculta a seção do jogo inicialmente */
 }
 
-.tentativas {
-    margin-bottom: 20px;
+#vidas {
+    margin-bottom: 20px; /* Espaçamento para os corações */
 }
 
 #chute {

@@ -1,62 +1,59 @@
-let fase = 1;
-let nivel = 20;
-let placar = 0;
-let vidasIniciais;
-let vidas;
-let random;
+window.onload = function() {
+    const iniciarButton = document.getElementById('iniciar');
+    const enviarButton = document.getElementById('enviar');
+    const faseElement = document.getElementById('fase');
+    const jogoDiv = document.querySelector('.jogo');
+    const resultadoDiv = document.querySelector('.resultado');
+    const chuteInput = document.getElementById('chute'); // Referência ao campo de entrada
+    const vidasDiv = document.getElementById('vidas'); // Referência ao container de vidas
+    let numeroAleatorio;
+    let tentativas;
 
-document.getElementById('iniciar').addEventListener('click', iniciarJogo);
-document.getElementById('enviar').addEventListener('click', verificarPalpite);
+    iniciarButton.addEventListener('click', iniciarJogo);
+    enviarButton.addEventListener('click', verificarPalpite);
 
-function iniciarJogo() {
-    vidasIniciais = parseInt(document.getElementById('dificuldade').value);
-    vidas = vidasIniciais;
-    random = Math.floor(Math.random() * nivel) + 1;
+    function iniciarJogo() {
+        
+        jogoDiv.style.display = 'block'; // Mostra a área do jogo
+        tentativas = parseInt(document.getElementById('dificuldade').value); // Pega a dificuldade escolhida
+        faseElement.textContent = '1'; // Reseta a fase para 1
+        numeroAleatorio = Math.floor(Math.random() * 20) + 1; // Gera um número aleatório entre 1 e 20
+        resultadoDiv.textContent = ''; // Limpa resultados anteriores
+        chuteInput.value = ''; // Limpa o campo de entrada
+        mostrarVidas(); // Mostra os corações no início do jogo
+    }
 
-    document.querySelector('.jogo').style.display = 'block';
-    document.getElementById('.fase').textContent = fase;
-    document.getElementById('.vidas').textContent = `Vidas : ${vidas}`;
-    document.querySelector('.resultado').textContent = '';
-    document.querySelector('.tentativas').textContent = '';
-    document.getElementById('chute').value = '';
-}
-function verificarPalpite() {
-    const chute = parseInt(document.getElementById('chute').value);
-    let tentativas = vidasIniciais;
-    let acertou = false;
-
-    if (chute === ramdom) {
-        placar += fase * 100;
-        document.querySelector('.resultado').textContent = 'Parabéns! Você acertou!';
-        fase++;
-        nivel += 20;
-        iniciarJogo();
-
-
-    } else {
-        document.querySelector('.tentativas').textContent += chute + ' ';
-        tentativas--;
-        vidas--;
-
-        if (chute > random) {
-            document.querySelector('.resultado').textContent = 'Seu chute foi maior que o número secreto!';
-        } else {
-            document.querySelector('.resultado').textContent = 'Seu chute foi menor que o número secreto!';
-        }
-
-        if (vidas === 0) {
-            finalizarJogo();
-        } else {
-            document.querySelector('.vidas').textContent = `Vidas: ${vidas}`;
+    function mostrarVidas() {
+        vidasDiv.innerHTML = ''; // Limpa os corações anteriores
+        for (let i = 0; i < tentativas; i++) {
+            const coracao = document.createElement('span');
+            coracao.innerHTML = '❤️'; // Adiciona um coração vermelho
+            vidasDiv.appendChild(coracao); // Adiciona o coração ao container
         }
     }
-}
-function finalizarJogo() {
-    document.querySelector('.resultado').textContent = `Você perdeu! O número era ${random}.`;
-    document.querySelector('.jogo').style.display = 'none';
-    document.querySelector('.tentativas').textContent = '';
-    document.querySelector('.vidas').textContent = '';
-    alert(`Fim de jogo! Você chegou à fase ${fase} com ${placar} pontos.`);
-}
 
+    function verificarPalpite() {
+        const chute = parseInt(chuteInput.value); // Pega o palpite do usuário
+        if (isNaN(chute) || chute < 1 || chute > 20) {
+            resultadoDiv.textContent = 'Por favor, insira um número entre 1 e 20.';
+            return; // Interrompe a execução da função
+        }
+        if (chute === numeroAleatorio) {
+            resultadoDiv.textContent = 'Parabéns! Você acertou!'; // Mensagem de acerto
+        } else {
+            tentativas--; // Reduz o número de tentativas
+            mostrarVidas(); // Atualiza os corações
+            if (chute < numeroAleatorio) {
+                resultadoDiv.textContent = `Errado! Seu palpite é menor que o número. Você ainda tem ${tentativas} tentativas.`;
+            } else {
+                resultadoDiv.textContent = `Errado! Seu palpite é maior que o número. Você ainda tem ${tentativas} tentativas.`;
+            }
 
+            if (tentativas <= 0) {
+                resultadoDiv.textContent += ` Game Over! O número era ${numeroAleatorio}.`; // Mensagem de fim de jogo
+                jogoDiv.style.display = 'none'; // Oculta o jogo após o término
+            }
+        }
+        chuteInput.value = ''; // Limpa o campo de entrada após cada palpite
+    }
+};
