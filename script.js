@@ -7,6 +7,11 @@ window.onload = function() {
     const chuteInput = document.getElementById('chute'); // Referência ao campo de entrada
     const vidasDiv = document.getElementById('vidas'); // Referência ao container de vidas
     const dificuldadeSelect = document.getElementById('dificuldade'); // Referência ao select de dificuldade
+    const gameOverMessage = document.getElementById('gameOverMessage');
+    const numeroCorreto = document.getElementById('numeroCorreto');
+    const reiniciarButton = document.getElementById('reiniciar');
+    const sairButton = document.getElementById('sair');
+
     let numeroAleatorio;
     let tentativas;
     let fase = 1; // Adiciona a variável de fase
@@ -14,6 +19,8 @@ window.onload = function() {
 
     iniciarButton.addEventListener('click', iniciarJogo);
     enviarButton.addEventListener('click', verificarPalpite);
+    reiniciarButton.addEventListener('click', reiniciarJogo);
+    sairButton.addEventListener('click', sairJogo);
 
     function iniciarJogo() {
         jogoDiv.style.display = 'block'; // Mostra a área do jogo
@@ -25,6 +32,7 @@ window.onload = function() {
         chuteInput.value = ''; // Limpa o campo de entrada
         chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
         mostrarVidas(); // Mostra as vidas no início do jogo
+        gameOverMessage.style.display = 'none'; // Garante que a mensagem de Game Over esteja oculta
     }
 
     function sortearNumero() {
@@ -64,22 +72,37 @@ window.onload = function() {
             tentativas--; // Reduz o número de tentativas
             mostrarVidas(); // Atualiza os corações
             if (chute < numeroAleatorio) {
-                resultadoDiv.textContent = `Errado! Seu palpite é menor que o número. Você ainda tem ${tentativas} tentativas.`;
+ resultadoDiv.textContent = `Errado! Seu palpite é menor que o número. Você ainda tem ${tentativas} tentativas.`;
             } else {
                 resultadoDiv.textContent = `Errado! Seu palpite é maior que o número. Você ainda tem ${tentativas} tentativas.`;
             }
 
             if (tentativas <= 0) {
-                resultadoDiv.textContent += ` Game Over! O número era ${numeroAleatorio}.`; // Mensagem de fim de jogo
-                jogoDiv.style.display = 'none'; // Oculta o jogo após o término
-                dificuldadeSelect.style.display = 'block'; // Exibe novamente a escolha de dificuldade
-                fase = 1; // Reseta a fase para 1 para o próximo jogo
-                maxChute = 20; // Reseta o valor máximo
-                chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
-                const gameOverMessage = document.getElementById('gameOverMessage');
-            gameOverMessage.style.display = 'block'; // Mostra a mensagem de Game Over
+                gameOver(); // Chama a função de Game Over
             }
         }
         chuteInput.value = '';
     }
-};  
+
+    function gameOver() {
+        resultadoDiv.textContent += ` Game Over! O número era ${numeroAleatorio}.`; // Mensagem de fim de jogo
+        jogoDiv.style.display = 'none'; // Oculta o jogo após o término
+        dificuldadeSelect.style.display = 'block'; // Exibe novamente a escolha de dificuldade
+        fase = 1; // Reseta a fase para 1 para o próximo jogo
+        maxChute = 20; // Reseta o valor máximo
+        chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
+        numeroCorreto.textContent = numeroAleatorio; // Mostra o número correto na mensagem
+        gameOverMessage.style.display = 'block'; // Mostra a mensagem de Game Over
+    }
+
+    function reiniciarJogo() {
+        gameOverMessage.style.display = 'none'; // Oculta a mensagem de Game Over
+        dificuldadeSelect.style.display = 'block'; // Exibe a escolha de dificuldade
+        jogoDiv.style.display = 'none'; // Oculta o jogo
+        iniciarJogo(); // Reinicia o jogo
+    }
+
+    function sairJogo() {
+        window.close(); // Tenta fechar a aba/janela do navegador
+    }
+};

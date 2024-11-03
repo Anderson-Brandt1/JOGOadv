@@ -26,8 +26,13 @@
             <input type="number" id="chute" placeholder="Digite um número entre 1 e 20" min="1" max="20">
             <button id="enviar">Enviar Palpite</button>
             <div class="resultado"></div>
-            <div id="gameOverMessage" style="display: none; font-size: 2em; color: red;">Game Over!</div>
-
+            <div id="gameOverMessage" style="display: none; font-size: 2em; color: red;">
+                Game Over! O número era <span id="numeroCorreto"></span>.
+                <div>
+                    <button id="reiniciar">Escolher Dificuldade</button>
+                    <button id="sair">Sair do Jogo</button>
+                </div>
+            </div>
         </div>
     </div>
 
