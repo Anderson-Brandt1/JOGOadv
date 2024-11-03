@@ -19,10 +19,15 @@ window.onload = function() {
         dificuldadeSelect.style.display = 'none'; // Oculta a escolha de dificuldade
         tentativas = parseInt(dificuldadeSelect.value); // Pega a dificuldade escolhida
         faseElement.textContent = fase; // Reseta a fase para 1
-        numeroAleatorio = Math.floor(Math.random() * 20) + 1; // Gera um número aleatório entre 1 e 20
+        numeroAleatorio = sortearNumero(); // Gera um número aleatório de acordo com a fase
         resultadoDiv.textContent = ''; // Limpa resultados anteriores
         chuteInput.value = ''; // Limpa o campo de entrada
-        mostrarVidas(); // Mostra os corações no início do jogo
+        mostrarVidas(); // Mostra as vidas no início do jogo
+    }
+
+    function sortearNumero() {
+        const max = fase * 20; // 20, 40, 60, 80, 100
+        return Math.floor(Math.random() * max) + 1; // Gera um número aleatório de acordo com a fase
     }
 
     function mostrarVidas() {
@@ -38,8 +43,8 @@ window.onload = function() {
         const chute = parseInt(chuteInput.value); // Pega o palpite do usuário
         
         // Validação de entrada
-        if (isNaN(chute) || chute < 1 || chute > 20) {
-            resultadoDiv.textContent = 'Por favor, insira um número entre 1 e 20.';
+        if (isNaN(chute) || chute < 1 || chute > (fase * 20)) {
+            resultadoDiv.textContent = `Por favor, insira um número entre 1 e ${fase * 20}.`;
             chuteInput.value = ''; // Limpa o campo de entrada
             return; // Interrompe a execução da função
         }
@@ -47,9 +52,9 @@ window.onload = function() {
         if (chute === numeroAleatorio) {
             resultadoDiv.textContent = 'Parabéns! Você acertou!'; // Mensagem de acerto
             fase++; // Incrementa a fase
-            tentativas = parseInt(dificuldadeSelect.value) + fase - 1; // Aumenta o número de tentativas com base na fase
+            tentativas = parseInt(dificuldadeSelect.value); // Reinicia as tentativas para a nova fase
             faseElement.textContent = fase; // Atualiza a fase exibida
-            numeroAleatorio = Math.floor(Math.random() * 20) + 1; // Gera um novo número aleatório
+            numeroAleatorio = sortearNumero(); // Gera um novo número aleatório
             mostrarVidas(); // Atualiza as vidas para a nova fase
         } else {
             tentativas--; // Reduz o número de tentativas
