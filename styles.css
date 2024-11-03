@@ -1,9 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-image: url('seu-fundo-animado.gif'); /* Substitua pelo caminho do seu GIF */
-    background-size: cover; /* Cobre toda a área */
-    background-repeat: no-repeat; /* Não repete a imagem */
-    background-position: center; /* Centraliza a imagem */
+    background-color: #1e1e1e; 
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -19,11 +16,11 @@ h1 {
 }
 
 .container {
-    background-color: rgba(51, 51, 51, 0.8); /* Fundo semi-transparente para melhor legibilidade */
+    background-color: rgba(51, 51, 51, 0.8); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    text-align: center; /* Centraliza o texto dentro do container */
+    text-align: center; 
 }
 
 label {
@@ -55,15 +52,15 @@ button {
 }
 
 button:hover {
-    background-color: #4CAF50;
+    background-color: #4CAF50; 
 }
 
 .jogo {
-    display: none; /* Oculta a seção do jogo inicialmente */
+    display: none; 
 }
 
 #vidas {
-    margin-bottom: 20px; /* Espaçamento para os corações */
+    margin-bottom: 20px;
 }
 
 #chute {
@@ -90,13 +87,16 @@ button:hover {
 }
 
 #enviar:hover {
-    background-color: #4CAF50;
+    background-color: #4CAF50; 
 }
 
 .resultado {
     margin-bottom: 20px;
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #61dafb; 
 }
 
 .vidas {
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
 }
