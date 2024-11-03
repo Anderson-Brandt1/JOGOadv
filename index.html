@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Adivinhação</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo CSS -->
+</head>
+<body>
+
+    <h1>Jogo da Adivinhação</h1>
+    <div class="container">
+        <label for="dificuldade">Escolha a dificuldade:</label>
+        <select id="dificuldade">
+            <option value="1">Insano (1 tentativa)</option>
+            <option value="2">Difícil (2 tentativas)</option>
+            <option value="3">Médio (3 tentativas)</option>
+            <option value="4">Fácil (4 tentativas)</option>
+            <option value="5">Noob Master (5 tentativas)</option>
+        </select>
+        <button id="iniciar">Iniciar Jogo</button>
+        
+        <div class="jogo" style="display: none;">
+            <h2>Fase <span id="fase">1</span></h2>
+            <div class="tentativas"></div>
+            <input type="number" id="chute" placeholder="Digite um número entre 1 e 20" min="1" max="20">
+            <button id="enviar">Enviar Palpite</button>
+            <div class="resultado"></div>
+            <div class="vidas"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Link para o arquivo JavaScript -->
+
+</body>
+</html>
