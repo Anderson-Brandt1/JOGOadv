@@ -10,6 +10,7 @@ window.onload = function() {
     let numeroAleatorio;
     let tentativas;
     let fase = 1; // Adiciona a variável de fase
+    let maxChute = 20; // Valor máximo inicial
 
     iniciarButton.addEventListener('click', iniciarJogo);
     enviarButton.addEventListener('click', verificarPalpite);
@@ -22,6 +23,7 @@ window.onload = function() {
         numeroAleatorio = sortearNumero(); // Gera um número aleatório de acordo com a fase
         resultadoDiv.textContent = ''; // Limpa resultados anteriores
         chuteInput.value = ''; // Limpa o campo de entrada
+        chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
         mostrarVidas(); // Mostra as vidas no início do jogo
     }
 
@@ -56,6 +58,8 @@ window.onload = function() {
             faseElement.textContent = fase; // Atualiza a fase exibida
             numeroAleatorio = sortearNumero(); // Gera um novo número aleatório
             mostrarVidas(); // Atualiza as vidas para a nova fase
+            maxChute = fase * 20; // Atualiza o valor máximo
+            chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
         } else {
             tentativas--; // Reduz o número de tentativas
             mostrarVidas(); // Atualiza os corações
@@ -70,8 +74,9 @@ window.onload = function() {
                 jogoDiv.style.display = 'none'; // Oculta o jogo após o término
                 dificuldadeSelect.style.display = 'block'; // Exibe novamente a escolha de dificuldade
                 fase = 1; // Reseta a fase para 1 para o próximo jogo
+                maxChute = 20; // Reseta o valor máximo
+                chuteInput.setAttribute("placeholder", `Digite um número entre 1 e ${maxChute}`); // Atualiza o placeholder
             }
         }
-        chuteInput.value = ''; // Limpa o campo de entrada após cada palpite
     }
-};
+};  
